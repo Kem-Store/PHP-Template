@@ -10,7 +10,7 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
 ?>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Travox Mid-Back Office 4 build 1001</title>
+        <title><?php echo $meta->title; ?></title>
 
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
         <meta name="description" content="<?php echo $meta->description; ?>">
