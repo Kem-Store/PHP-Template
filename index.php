@@ -20,16 +20,17 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
         <meta name="copyright" content="<?php echo $meta->copyright; ?>">
         <meta name="creation_Date" content="<?php echo $meta->creation; ?>">
 
-        <link rel="shortcut icon" href="/resources/icon/mbos-icon-16.png">
-        <link rel="apple-touch-icon" sizes="57x57" href="/resources/icon/mbos-icon-57.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/resources/icon/mbos-icon-72.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/resources/icon/mbos-icon-144.png">
+        <link rel="shortcut icon" href="/public/icon/icon-16.png">
+        <link rel="apple-touch-icon" sizes="57x57" href="/public/icon/mbos-icon-57.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/public/icon/mbos-icon-72.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/public/icon/mbos-icon-144.png">
 
         <link href="/public/css/normalize.css" rel="stylesheet" type="text/css" />
         <link href="/public/css/<?php echo $meta->theme; ?>/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="/public/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
         <link href="/public/css/materialPreloader.min.css" rel="stylesheet" type="text/css" />
         <link href="/public/css/thaisans-neue.css" rel="stylesheet" type="text/css" />
+        <link href="/public/touno.engine.css" rel="stylesheet" type="text/css" />
 
         <!--[if lt IE 9]>
           <script src="/public/js/html5shiv.min.js"></script>
@@ -48,45 +49,21 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
         <script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/public/js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="/public/js/bootstrap-notify.min.js"></script>
+        <script type="text/javascript" src="/public/touno.engine.js"></script>
     </head>
 <body>
 <script type="text/javascript">
-    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
-    window.loader = new $.materialPreloader({
-        position: 'top',
-        height: '5px',
-        col_1: '#159756',
-        col_2: '#da4733',
-        col_3: '#3b78e7',
-        col_4: '#fdba2c',
-        fadeIn: 0,
-        fadeOut: 200
+    $(function(){
+        loader.on();
     });
-    loader.on();
-
-    window.addEventListener('DOMContentLoaded', function () {
-        var ql = new QueryLoader2(document.querySelector("body"), {
-            barColor: "#fff",
-            backgroundColor: "#fff",
-            percentage: false,
-            barHeight: 0,
-            minimumTime: 200,
-            fadeOutTime: 300,
-            deepSearch: true,
-            onProgress: onProgressLoaded,
-            onComplete: onCompleteLoaded
-        });
-    });
-
-    var onProgressLoaded = function (percentage, imagesLoaded, totalImages) {
-
-    }
     var onCompleteLoaded = function () {
-        loader.off();
-        // $.when(
-        // ).fail(function () {
-        //     //ERROR MESSAGE
-        // }).done(function () {
+        var engine = new Template();
+        $.when(
+            engine.init
+        ).fail(function () {
+            console.log('ERROR MESSAGE');
+        }).done(function () {
+            loader.off();
             try {
                 if (localStorage == undefined) {
                     throw new CallbackException("LocalStorage Support", "Browser your not support 'localStorage'.<br> Please contact the system administrator.");
@@ -108,10 +85,19 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
                     console.error(e);
                 }
             }
-        //});
+        });
     }
 
 </script>
-<?php include_once("template.php"); ?>
+<?php include_once("component/main.php"); ?>
+
+<script type="text/javascript">
+    window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+    window.loader = new $.materialPreloader({ position: 'top', height: '5px', col_1: '#159756', col_2: '#da4733', col_3: '#3b78e7', col_4: '#fdba2c', fadeIn: 0, fadeOut: 200 });
+    window.addEventListener('DOMContentLoaded', function () {
+        var ql = new QueryLoader2(document.querySelector("body"), { backgroundColor: "#fcfcfc", percentage: false, barHeight: 0, minimumTime: 200, fadeOutTime: 300, deepSearch: true, onComplete: onCompleteLoaded });
+    });
+</script>
+
 </body>
 </html>
