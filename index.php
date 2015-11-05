@@ -37,8 +37,8 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
 
         <script type="text/javascript" src="/public/js/db.js"></script>
         <script type="text/javascript" src="/public/js/URI.min.js"></script>
-        <script type="text/javascript" src="/public/js/html5shiv.min.js"></script>
         <script type="text/javascript" src="/public/js/jquery-1.10.2.min.js"></script>
+        <script type="text/javascript" src="/public/js/jquery.dynatable.js"></script>
         <script type="text/javascript" src="/public/js/materialPreloader.min.js"></script>
         <script type="text/javascript" src="/public/js/queryloader2.min.js"></script>
         <script type="text/javascript" src="/public/js/moment.min.js"></script>
@@ -85,7 +85,7 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
     }
 
 </script>
-<?php include_once("component/main.php"); ?>
+<?php include_once("component/default.php"); ?>
 
 <script type="text/javascript">
     window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;

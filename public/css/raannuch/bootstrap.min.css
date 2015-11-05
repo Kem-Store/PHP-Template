@@ -1,13 +1,13 @@
 @charset "UTF-8";
+@import url("../materialPreloader.min.css");
+@import url("../bootstrap-datetimepicker.min.css");
+@import url("../thaisans-neue.css");
 /*!
  * Bootstrap v3.3.5 (http://getbootstrap.com)
  * Copyright 2011-2015 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
-@import url("../materialPreloader.min.css");
-@import url("../bootstrap-datetimepicker.min.css");
-@import url("../thaisans-neue.css");
 html {
   font-family: sans-serif;
   -ms-text-size-adjust: 100%;
