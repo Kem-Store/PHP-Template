@@ -25,11 +25,7 @@ $meta = json_decode(file_get_contents("lib/bin/init.json"));
         <link rel="apple-touch-icon" sizes="72x72" href="/public/icon/mbos-icon-72.png">
         <link rel="apple-touch-icon" sizes="144x144" href="/public/icon/mbos-icon-144.png">
 
-        <link href="/public/css/normalize.css" rel="stylesheet" type="text/css" />
         <link href="/public/css/<?php echo $meta->theme; ?>/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="/public/css/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
-        <link href="/public/css/materialPreloader.min.css" rel="stylesheet" type="text/css" />
-        <link href="/public/css/thaisans-neue.css" rel="stylesheet" type="text/css" />
         <link href="/public/touno.engine.css" rel="stylesheet" type="text/css" />
 
         <!--[if lt IE 9]>

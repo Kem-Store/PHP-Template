@@ -21,7 +21,7 @@
             <li class="divider"></li>
             <li><a href="#">Separated link</a></li>
             <li class="divider"></li>
-            <li><a href="#">One more separated link</a></li>
+            <li><a href="#">อะไรสักอย่าง</a></li>
           </ul>
         </li>
 		<li><a href="#">ABOUT US</a></li>
@@ -43,5 +43,14 @@
         </li>
 	  </ul>
     </div>
+  </div>
+</div>
+<div class="page-header">
+  <div class="container">
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a href="#">Library</a></li>
+      <li class="active">Data</li>
+    </ul>
   </div>
 </div>

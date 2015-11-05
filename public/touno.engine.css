@@ -11,17 +11,27 @@
     background: -webkit-linear-gradient(top,#fff 0,#f3f2eb 100%);
     background: linear-gradient(to bottom,#fff 0,#f3f2eb 100%);
 }*/
-
+.page-header {
+	background: #413c35 url(../../images/pattern_dark.png);
+	margin: 60px 0 0 0;
+	height: 42px;
+}
 .navbar-toggle {
     margin-top: 15px;
 }
 ul.navbar-nav>li>a {
-    padding-top: 22px;
+    padding: 20px 15px 16px 15px;
 	font-weight: bold;
 }
-
+ul.breadcrumb>li.active {
+	color: #FFF;
+}
+ul.breadcrumb>li {
+	font-weight: bold;
+}
 .navbar-brand {
-	background: url('../../images/logo.png') no-repeat 0px 10px ;
-    padding: 22px 0 0 48px;
+	background: url('../../images/logo.png') no-repeat 10px 10px ;
+    padding: 18px 0 0 60px;
 	width: 225px;
 	height: 60px;
+}
