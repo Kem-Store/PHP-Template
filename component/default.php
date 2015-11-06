@@ -29,7 +29,10 @@
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
         <li class="dropdown">
-	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">CART <span id="cart" class="badge">0</span></a>
+	      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+          CART 
+          <span id="cart" class="badge money">0</span>
+        </a>
 	      <ul class="dropdown-menu dropdown-cart" role="menu">
 	      	<div style="padding:15px;">
 		      <form role="search">
@@ -53,4 +56,14 @@
       <li class="active">Data</li>
     </ul>
   </div>
+</div>
+<div id="panel-component">
+<?php
+  // $default_component = 'home';
+  // foreach (Component::load() as $key => $value)
+  // {
+  //   echo '<div id="panel-'.$value['com'].($default_component != $value['com'] ? '" style="display:none"' : '"').'>';
+  //   echo file_get_contents($value['path']).'</div>';
+  // }
+?>
 </div>

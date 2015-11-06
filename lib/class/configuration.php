@@ -1,6 +1,9 @@
 <?php
 // Author: Kenanek Thongkam
-class ini
+error_reporting((preg_match('/\.vhost|localhost/', $_SERVER['HTTP_HOST']) ? E_ALL : E_STRICT)); // 
+date_default_timezone_set('Asia/Bangkok');
+
+class Ini
 {
 	public static function SettingArray($path)
 	{
@@ -17,13 +20,24 @@ class ini
 	}	
 }
 
-class alert
+class Component
 {
-	public static function Warning($text)
+	public static function load()
 	{
-		$tmpString = '<center><div class="alert-warning">';
-		$tmpString .= $text.'</div></center>';
-		return $tmpString;
+		$objs = array();
+		$dir = dirname(".")."/../component";
+		$d = dir($dir);
+		while (false !== ($entry = $d->read())) {
+			if($entry!='.' && $entry!='..') {
+		   		$path = $dir.'/'.$entry.'/index.php';
+		   		if (file_exists($path)) {
+		   			$modify = date("F d Y H:i:s", filemtime($path));
+		   			array_push($objs, array('com'=> $entry, 'path'=> $path, 'update'=> $modify));
+		   		}
+		   	}
+		}
+		$d->close();
+		return $objs;
 	}	
 	public static function Info($text)
 	{

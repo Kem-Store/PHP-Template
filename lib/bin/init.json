@@ -1,10 +1,9 @@
 {
-	"title": "PHP TOUNO TEMPLATE 2.0",
-	"description": "",
-	"abstract": "",
-	"keywords": "",
-	"author": "Mr.Kananek Thongkam",
-	"copyright": "Touno.K Freelance",
-	"creation": "01/01/2015",
-	"theme": "raannuch"
+	"default":{
+		"theme": "raannuch",
+		"component":"home"
+	},
+	"db": {
+		"name": "touno-template"
+	}
 }
