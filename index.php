@@ -15,7 +15,7 @@
         <link rel="apple-touch-icon" sizes="57x57" href="/resources/icon/icon-57.png">
         <link rel="apple-touch-icon" sizes="72x72" href="/resources/icon/icon-72.png">
         <link rel="apple-touch-icon" sizes="144x144" href="/resources/icon/icon-144.png">
-        <link rel="stylesheet" href="public/css/raannuch/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/public/css/raannuch/bootstrap.min.css" type="text/css" />
         <link href="/public/touno.engine.css" rel="stylesheet" type="text/css" />
         <!--[if lt IE 9]>
           <script src="/public/js/html5shiv.min.js"></script>

@@ -6,7 +6,7 @@ class DB
 	
 	public function __construct()
 	{
-		$dbConfig = parse_ini_file('bin/db.ini', true);
+		$dbConfig = parse_ini_file('lib/bin/db.ini', true);
 		$dbConfig = preg_match('/\.vhost|localhost/', $_SERVER['HTTP_HOST']) ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
 

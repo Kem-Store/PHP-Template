@@ -6,10 +6,10 @@ include_once("class/DB.php");
 $base = new DB();
 $session = new Session();
 
-$config = json_decode(file_get_contents("bin/init.json"));
-$config->version = date("YH.s.i dm", filemtime("bin/init.json"));
+$config = json_decode(file_get_contents("lib/bin/init.json"));
+$config->version = date("YH.s.i dm", filemtime("lib/bin/init.json"));
 
-if($_POST['config'] === 'initial') {
-	echo json_encode($config);
-}
+// if($_POST['config'] === 'initial') {
+// 	echo json_encode($config);
+// }
 ?>

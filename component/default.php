@@ -48,7 +48,7 @@
     </div>
   </div>
 </div>
-<div class="page-header">
+<div class="page-header" style="border-bottom: none !important;">
   <div class="container">
     <ul class="breadcrumb">
       <li><a href="#">Home</a></li>
@@ -59,11 +59,12 @@
 </div>
 <div id="panel-component">
 <?php
-  // $default_component = 'home';
-  // foreach (Component::load() as $key => $value)
-  // {
-  //   echo '<div id="panel-'.$value['com'].($default_component != $value['com'] ? '" style="display:none"' : '"').'>';
-  //   echo file_get_contents($value['path']).'</div>';
-  // }
+  include_once('lib/init.php');
+  $default_component = 'home';
+  foreach (Component::load() as $key => $value)
+  {
+    echo '<div id="panel-'.$value['com'].($default_component != $value['com'] ? '" style="display:none"' : '"').'>';
+    echo file_get_contents($value['path']).'</div>';
+  }
 ?>
 </div>

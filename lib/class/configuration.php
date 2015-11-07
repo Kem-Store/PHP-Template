@@ -25,7 +25,7 @@ class Component
 	public static function load()
 	{
 		$objs = array();
-		$dir = dirname(".")."/../component";
+		$dir = dirname(".")."/component";
 		$d = dir($dir);
 		while (false !== ($entry = $d->read())) {
 			if($entry!='.' && $entry!='..') {
