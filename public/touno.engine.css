@@ -50,5 +50,16 @@ ul.breadcrumb > li + li:before {
 	height: 60px;
 }
 
+#main-home {
+	text-align: center; 
+	position: relative; 
+	height: 400px; 
+	display: block; 
+	background: url('../../images/dark_wood.jpg') 50% 0% repeat;
+	color: #FFF;
+   font-size: 400%;
+   font-weight: bold;
+   padding-top: 120px;
+}
 /*text-align: center; position: relative; height: 400px; display: block; 
 background: url(http://localhost:8081/images/dark_wood.jpg) 50% 0% repeat;*/

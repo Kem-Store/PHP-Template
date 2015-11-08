@@ -1,56 +1,31 @@
 var T = {
 	Timestamp : parseInt((new Date().getTime() / 1000)),
 	Site : function(){
-		this.init = function(){
-          var d = $.Deferred();
-          if (window.indexedDB != undefined) {
-              db.open({ server: T.Storage('dbname'), version: 1 }).then(function(s) {
-                  window.iDB = s;
-                  window.iDB.initial.get(T.Storage('version')).then(function(data){
-                  	console.log(data);
-                      window.site = data;
-                      d.resolve();
-                  });
-              });
-          } else {
-              d.reject();
-          }
-          return d.promise();
-      }
-      this.component = function(){
-      	var d = $.Deferred();
-			$.ajax({ 
-				url: window.origin+"/component/default.php", 
-				dataType : 'HTML', type: "POST"
-			}).fail(function(){
-            d.reject();
-			}).done(function(data) {
-				$('body').append(data);
-            d.resolve();
-			});
-         return d.promise();
-      }
+
 	},
-    Storage: function(key, setValue) {
-        var getValue = null;
-        try {
-            if(typeof(setValue) === 'undefined') {
-                getValue = window.localStorage.getItem(key);
-            } else {
-                window.localStorage.setItem(key, setValue.toString());
-            }
-        } catch (e) { /* Browser not support localStorage function. */ }
-        return getValue;
-    },
-    StorageClear: function(key){
-        try {
-            if(key == undefined) {
-                $.each(window.localStorage, function(key,value){ window.localStorage.removeItem(key); }); 
-            } else {
-                localStorage.removeItem(key);
-            }
-        } catch (e) { /* Browser not support localStorage function. */ }
-    }
+	URL: function(){
+
+	},
+	Storage: function(key, setValue) {
+		var getValue = null;
+		try {
+			if(typeof(setValue) === 'undefined') {
+				getValue = window.localStorage.getItem(key);
+			} else {
+				window.localStorage.setItem(key, setValue.toString());
+			}
+		} catch (e) { /* Browser not support localStorage function. */ }
+			return getValue;
+		},
+	StorageClear: function(key){
+		try {
+			if(key == undefined) {
+				$.each(window.localStorage, function(key,value){ window.localStorage.removeItem(key); }); 
+			} else {
+				localStorage.removeItem(key);
+			}
+		} catch (e) { /* Browser not support localStorage function. */ }
+	}
 }
 
 
