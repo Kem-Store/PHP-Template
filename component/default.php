@@ -64,7 +64,8 @@
   foreach (Component::load() as $key => $value)
   {
     echo '<div id="panel-'.$value['com'].($default_component != $value['com'] ? '" style="display:none"' : '"').'>';
-    echo file_get_contents($value['path']).'</div>';
+    include_once($value['path']);
+    echo '</div>';
   }
 ?>
 </div>

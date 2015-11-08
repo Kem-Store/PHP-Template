@@ -16,6 +16,7 @@
         <link rel="apple-touch-icon" sizes="72x72" href="/resources/icon/icon-72.png">
         <link rel="apple-touch-icon" sizes="144x144" href="/resources/icon/icon-144.png">
         <link rel="stylesheet" href="/public/css/raannuch/bootstrap.min.css" type="text/css" />
+        <link rel="stylesheet" href="/public/css/materialPreloader.min.css" type="text/css" />
         <link href="/public/touno.engine.css" rel="stylesheet" type="text/css" />
         <!--[if lt IE 9]>
           <script src="/public/js/html5shiv.min.js"></script>
@@ -55,7 +56,10 @@
         
 
 </script>
-<?php include_once("component/default.php"); ?>
+<?php 
+include_once("/lib/init.php"); 
+include_once("/component/default.php"); 
+?>
 <script type="text/javascript">
 
     try {

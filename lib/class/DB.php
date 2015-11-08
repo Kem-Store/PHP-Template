@@ -22,8 +22,20 @@ class DB
 		}
 	}
 	
-	public function query($sql, array $param)
+	public function query($sql, $params = [])
 	{
+		try {
+			$sth = $this->dbh->prepare($sql);
+			foreach ($params as $key => $val) {
+			    $sth->bindParam($key, $val);
+			}
+			$sth->execute();
+			return $sth->fetchAll();
+		} catch(Exception $e) {
+			return [];
+		}
+
+
 		// list($sqlType) = explode(' ',$sqlString);
 		// switch(strtolower($sqlType))
 		// {
