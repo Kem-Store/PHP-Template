@@ -7,7 +7,6 @@ window.State = (function () { // Event in Refesh page F5 key or Open NewTab.
     State.StorageName = getState[3] || null;
     return State;
 })();
-window.A = null;
 window.T = {
 	Timestamp : parseInt((new Date().getTime() / 1000)),
 	Storage: function(key, setValue) {
@@ -36,12 +35,16 @@ window.T = {
     StateName : function(){
         return  State.Component+(State.Module?'-'+State.Module:'')+(State.StorageName?'-'+State.StorageName:'');
     },
-    SetState: function (component, module, item_name) { // Event in Click menu in app.
-        window.State.Component = component || T.Storage('component-default') || 'home';
-        window.State.Module = module || null;
-        window.State.StorageName = item_name || null;
+    SetState: function (component, module, item_name) {
+        var reloadEvent = (component == undefined);
+        if(!reloadEvent) window.State.Component = component || T.Storage('component-default') || 'home';
+        if(!reloadEvent) window.State.Module = module || null;
+        if(!reloadEvent) window.State.StorageName = item_name || null;
         T.StateCompile();
         return this;
+    },
+    SetComponent : function(func) {
+        if(typeof func == 'function') T._Handle.Component = func;
     },
     SetModule: function (module) { // Event in Click menu in app.
         window.State.Module = module || null;
@@ -61,19 +64,30 @@ window.T = {
         console.log(T.StateName(), T.GetItems(), window.State);
         window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
         
-        
-        // A = $.ajax({ 
-        //     url: window.origin + '/component/',
-        //     error: function(){
-
-        //     },
-        //     success: function(data){
-
-        //     }
-        // });
+        if(window.State.Module && window.State.StorageName) {
+            (function(){
+                var defer = $.Deferred();
+                T._Handle.Module = $.ajax({ 
+                    url: window.origin + '/component/',
+                    error: function(){
+                        defer.reject();
+                    },
+                    success: function(data){
+                        defer.resolve();
+                    }
+                });
+                return defer.promise();
+            })();
+        } else {
+            T._Handle.Component(window.State.Component);
+        }
     }, 
     Stop: function(){
         if(A) A.abort();
+    },
+    _Handle: {
+        Component: function(name){ },
+        Module: null
     }
 }
 

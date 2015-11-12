@@ -9,7 +9,7 @@ class DB
 	{
 		$this->connected = true;
 		$dbConfig = parse_ini_file('lib/bin/db.ini', true);
-		$dbConfig = preg_match('/\.vhost|localhost/', $_SERVER['HTTP_HOST']) ? $dbConfig['localhost'] : $dbConfig['server'];
+		$dbConfig = $_SERVER['SERVER_PORT'] != 80 ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
 
 		try {
