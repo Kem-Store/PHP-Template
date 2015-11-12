@@ -3,9 +3,11 @@ class DB
 {
 	protected $dbh;
 	protected $isConfig;
+	protected $connected;
 	
 	public function __construct()
 	{
+		$this->connected = true;
 		$dbConfig = parse_ini_file('lib/bin/db.ini', true);
 		$dbConfig = preg_match('/\.vhost|localhost/', $_SERVER['HTTP_HOST']) ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
@@ -18,22 +20,28 @@ class DB
 				$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			}
 		} catch(Exception $e) {
+			$this->connected = false;
 			echo '<p>'.$e->getMessage().'</p>';
 		}
 	}
 	
 	public function query($sql, $params = array())
 	{
-		try {
-			$sth = $this->dbh->prepare($sql);
-			foreach ($params as $key => $val) {
-			    $sth->bindParam($key, $val);
-			}
-			$sth->execute();
-			return $sth->fetchAll();
-		} catch(Exception $e) {
-			return array();
+		$query = array();
+		if($this->connected)
+		{
+			try {
+				$sth = $this->dbh->prepare($sql);
+				foreach ($params as $key => $val) {
+				    $sth->bindParam($key, $val);
+				}
+				$sth->execute();
+				$query = $sth->fetchAll();
+			} catch(Exception $e) {
+				
+			}			
 		}
+		return $query;
 
 
 		// list($sqlType) = explode(' ',$sqlString);
