@@ -22,7 +22,7 @@ class DB
 		}
 	}
 	
-	public function query($sql, $params = [])
+	public function query($sql, $params = array())
 	{
 		try {
 			$sth = $this->dbh->prepare($sql);
@@ -32,7 +32,7 @@ class DB
 			$sth->execute();
 			return $sth->fetchAll();
 		} catch(Exception $e) {
-			return [];
+			return array();
 		}
 
 

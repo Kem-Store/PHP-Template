@@ -63,7 +63,7 @@ window.T = {
         
         
         // A = $.ajax({ 
-        //     url: window.location.origin + '/component/',
+        //     url: window.origin + '/component/',
         //     error: function(){
 
         //     },
