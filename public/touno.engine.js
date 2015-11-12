@@ -30,40 +30,38 @@ window.T = {
 			}
 		} catch (e) { /* Browser not support localStorage function. */ }
 	},
-    StateURL: URI.expand("/{Component}"+(State.Module?'/':'')+"{Module}"+(State.StorageName?'/':'')+"{StorageName}", window.State).toString(),
-    StateName : State.Component + (State.Module?'-'+State.Module:'') + (State.StorageName?'-'+State.StorageName:''),
+    StateURL: function(){
+        return URI.expand("/{Component}"+(State.Module?'/':'')+"{Module}"+(State.StorageName?'/':'')+"{StorageName}", window.State).toString();
+    },
+    StateName : function(){
+        return  State.Component+(State.Module?'-'+State.Module:'')+(State.StorageName?'-'+State.StorageName:'');
+    },
     SetState: function (component, module, item_name) { // Event in Click menu in app.
         window.State.Component = component || T.Storage('component-default') || 'home';
         window.State.Module = module || null;
         window.State.StorageName = item_name || null;
-        window.State.StorageItems = T.Storage(item_name);
-
-        console.log('SetState', window.State);
-        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        T.StateCompile();
         return this;
     },
     SetModule: function (module) { // Event in Click menu in app.
         window.State.Module = module || null;
-
-        console.log('SetModule', window.State);
-        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        T.StateCompile();
         return this;
     },
-    SetItems: function (item_name) { // Event in Click menu in app.
-        window.State.Component = component || T.Storage('component-default') || 'home';
-        window.State.Module = module || null;
+    SetItems: function (name, value) {
+        if(value) T.Storage(name, value);
         window.State.StorageName = item_name || null;
-        window.State.StorageItems = T.Storage(item_name);
-
-        console.log('SetItem', window.State);
-        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        T.StateCompile();
         return this;
     },
     GetItems: function () {
         return T.Storage(window.State.StorageName);
+    },
+    StateCompile: function(){
+        console.log('SetModule', window.State);
+        window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
     }
 }
-
 
 $.extend(window, {
     CallbackException : function(m1, m2) {
@@ -130,4 +128,8 @@ $.extend(String.prototype, {
         var m = { 'n': false, 'N': false, 'no': false, 'NO': false, 'FALSE': false, 'y': true, 'Y': true, 'false': false, 'yes': true, 'YES': true, 'TRUE': true, 'true': true };
         return (m.hasOwnProperty(this)) ? m[this] : false;
     }
+});
+
+$(function(){
+    T.SetState();
 });
