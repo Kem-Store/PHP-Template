@@ -65,6 +65,8 @@ include_once("/component/default.php");
     try {
         if (localStorage == undefined) {
             throw new CallbackException("LocalStorage Support", "Browser your not support 'localStorage'.<br> Please contact the system administrator.");
+        } else if (console == undefined) {
+            throw new CallbackException("Log Support", "Browser your not support 'log'.<br> Please contact the system administrator.");
         } else if (document.cookie == undefined) {
             throw new CallbackException("Cookie Support", "Browser your not support 'Cookie'.<br> Please contact the system administrator.");
         } else if (window.indexedDB == undefined) {

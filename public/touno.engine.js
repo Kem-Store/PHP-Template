@@ -61,7 +61,7 @@ window.T = {
         return T.Storage(window.State.StorageName);
     },
     StateCompile: function(){
-        console.log(T.StateName(), T.GetItems(), window.State);
+        console.log('StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
         window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
         
         if(window.State.Module && window.State.StorageName) {
