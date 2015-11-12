@@ -7,7 +7,7 @@ window.State = (function () { // Event in Refesh page F5 key or Open NewTab.
     State.StorageName = getState[3] || null;
     return State;
 })();
-
+window.A = null;
 window.T = {
 	Timestamp : parseInt((new Date().getTime() / 1000)),
 	Storage: function(key, setValue) {
@@ -58,8 +58,22 @@ window.T = {
         return T.Storage(window.State.StorageName);
     },
     StateCompile: function(){
-        console.log('SetModule', window.State);
+        console.log(T.StateName(), T.GetItems(), window.State);
         window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
+        
+        
+        // A = $.ajax({ 
+        //     url: window.location.origin + '/component/',
+        //     error: function(){
+
+        //     },
+        //     success: function(data){
+
+        //     }
+        // });
+    }, 
+    Stop: function(){
+        if(A) A.abort();
     }
 }
 
