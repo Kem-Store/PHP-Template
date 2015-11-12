@@ -1,11 +1,15 @@
-var T = {
+window.State = (function () { // Event in Refesh page F5 key or Open NewTab.  
+    var State = { Component: null, Module: null, StorageName: null, StorageItems: null }
+    var getState = new RegExp(document.domain + '.*?\/([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*', 'ig');
+    getState = getState.exec(location.href);
+    State.Component = getState[1] || null;
+    State.Module = getState[2] || null;
+    State.StorageName = getState[3] || null;
+    return State;
+})();
+
+window.T = {
 	Timestamp : parseInt((new Date().getTime() / 1000)),
-	Site : function(){
-
-	},
-	URL: function(){
-
-	},
 	Storage: function(key, setValue) {
 		var getValue = null;
 		try {
@@ -25,7 +29,39 @@ var T = {
 				localStorage.removeItem(key);
 			}
 		} catch (e) { /* Browser not support localStorage function. */ }
-	}
+	},
+    StateURL: URI.expand("/{Component}"+(State.Module?'/':'')+"{Module}"+(State.StorageName?'/':'')+"{StorageName}", window.State).toString(),
+    StateName : State.Component + (State.Module?'-'+State.Module:'') + (State.StorageName?'-'+State.StorageName:''),
+    SetState: function (component, module, item_name) { // Event in Click menu in app.
+        window.State.Component = component || T.Storage('component-default') || 'home';
+        window.State.Module = module || null;
+        window.State.StorageName = item_name || null;
+        window.State.StorageItems = T.Storage(item_name);
+
+        console.log('SetState', window.State);
+        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        return this;
+    },
+    SetModule: function (module) { // Event in Click menu in app.
+        window.State.Module = module || null;
+
+        console.log('SetModule', window.State);
+        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        return this;
+    },
+    SetItems: function (item_name) { // Event in Click menu in app.
+        window.State.Component = component || T.Storage('component-default') || 'home';
+        window.State.Module = module || null;
+        window.State.StorageName = item_name || null;
+        window.State.StorageItems = T.Storage(item_name);
+
+        console.log('SetItem', window.State);
+        window.history.pushState(window.StorageItems, T.StateName, T.StateURL);
+        return this;
+    },
+    GetItems: function () {
+        return T.Storage(window.State.StorageName);
+    }
 }
 
 
