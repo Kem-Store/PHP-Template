@@ -64,11 +64,13 @@ window.T = {
         console.log('StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
         window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
         
-        if(window.State.Module && window.State.StorageName) {
+        if(window.State.Component) T._Handle.Component(window.State.Component);
+        if(window.State.Module || window.State.StorageName) {
+            loader.on();
             (function(){
                 var defer = $.Deferred();
                 T._Handle.Module = $.ajax({ 
-                    url: window.origin + '/component/',
+                    url: window.origin + '/component/home/index.php',
                     error: function(){
                         defer.reject();
                     },
@@ -77,9 +79,9 @@ window.T = {
                     }
                 });
                 return defer.promise();
-            })();
-        } else {
-            T._Handle.Component(window.State.Component);
+            })().then(function(){
+                loader.off();
+            });
         }
     }, 
     Stop: function(){
