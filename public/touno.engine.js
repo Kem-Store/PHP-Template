@@ -21,7 +21,7 @@ window.T = {
 		} catch (e) { /* Browser not support localStorage function. */ }
 	},
     StateURL: function(){
-        return URI.expand("/{Component}"+(State.Module?'/':'')+"{Module}"+(State.StorageName?'/':'')+"{StorageName}", window.State).toString();
+        return URI.expand("/{Component}"+(State.Module?'/':'')+"{Module}"+(State.StorageName?'/':'')+"{StorageName}/", window.State).toString();
     },
     StateName : function(){
         return  State.Component+(State.Module?'-'+State.Module:'')+(State.StorageName?'-'+State.StorageName:'');
@@ -53,7 +53,6 @@ window.T = {
     StateCompile: function(event){
         var main = T.Storage('component-default') || 'home';
         var found = T._Handle.Component(window.State.Component);
-        console.log('Check', found);
         if(!found){
             window.State.Component = main;
             T._Handle.Component(window.State.Component);
@@ -62,7 +61,7 @@ window.T = {
         console.log('StateCompile::', 'StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
         if(!event) window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
         if(!found) window.history.replaceState(T.GetItems(), T.StateName(), T.StateURL());
-        
+
         if(window.State.Module || window.State.StorageName) {
             loader.on();
             (function(){
@@ -84,7 +83,8 @@ window.T = {
         }
     }, 
     Stop: function(){
-        if(T._Handle.Module.readyState != 4) T._Handle.Module.abort();
+        loader.off();
+        if(T._Handle.Module.readyState != 4 && T._Handle.Module.readyState != undefined) T._Handle.Module.abort();
     },
     _Handle: {
         Component: function(name){ },
@@ -160,7 +160,6 @@ $.extend(String.prototype, {
 });
 
 var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab. 
-    console.log('_HandleState::', event); 
     var State = { Component: null, Module: null, StorageName: null, StorageItems: null }
     var getState = new RegExp(document.domain + '.*?\/([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*', 'ig');
     getState = getState.exec(location.href);
