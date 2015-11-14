@@ -1,12 +1,3 @@
-window.State = (function () { // Event in Refesh page F5 key or Open NewTab.  
-    var State = { Component: null, Module: null, StorageName: null, StorageItems: null }
-    var getState = new RegExp(document.domain + '.*?\/([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*', 'ig');
-    getState = getState.exec(location.href);
-    State.Component = getState[1] || null;
-    State.Module = getState[2] || null;
-    State.StorageName = getState[3] || null;
-    return State;
-})();
 window.T = {
 	Timestamp : parseInt((new Date().getTime() / 1000)),
 	Storage: function(key, setValue) {
@@ -36,10 +27,9 @@ window.T = {
         return  State.Component+(State.Module?'-'+State.Module:'')+(State.StorageName?'-'+State.StorageName:'');
     },
     SetState: function (component, module, item_name) {
-        var reloadEvent = (component == undefined);
-        if(!reloadEvent) window.State.Component = component || T.Storage('component-default') || 'home';
-        if(!reloadEvent) window.State.Module = module || null;
-        if(!reloadEvent) window.State.StorageName = item_name || null;
+        window.State.Component = component || T.Storage('component-default') || 'home';
+        window.State.Module = module || null;
+        window.State.StorageName = item_name || null;
         T.StateCompile();
         return this;
     },
@@ -60,15 +50,16 @@ window.T = {
     GetItems: function () {
         return T.Storage(window.State.StorageName);
     },
-    StateCompile: function(){
+    StateCompile: function(event){
         console.log('StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
-        window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
+        if(!event) window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
         
         if(window.State.Component) T._Handle.Component(window.State.Component);
         if(window.State.Module || window.State.StorageName) {
             loader.on();
             (function(){
                 var defer = $.Deferred();
+                T.Stop();
                 T._Handle.Module = $.ajax({ 
                     url: window.origin + '/component/home/index.php',
                     error: function(){
@@ -85,11 +76,11 @@ window.T = {
         }
     }, 
     Stop: function(){
-        if(A) A.abort();
+        if(T._Handle.Module.readyState != 4) T._Handle.Module.abort();
     },
     _Handle: {
         Component: function(name){ },
-        Module: null
+        Module: {}
     }
 }
 
@@ -160,6 +151,23 @@ $.extend(String.prototype, {
     }
 });
 
+var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab.  
+    var State = { Component: null, Module: null, StorageName: null, StorageItems: null }
+    var getState = new RegExp(document.domain + '.*?\/([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*', 'ig');
+    getState = getState.exec(location.href);
+    State.Component = getState[1] || T.Storage('component-default') || 'home';
+    State.Module = getState[2] || null;
+    State.StorageName = getState[3] || null;
+    return State;
+};
+
+window.State = _HandleState();
+window.onpopstate = function(event) {
+    console.log(event);
+    window.State = _HandleState();
+    T.StateCompile(event);
+};
 $(function(){
-    T.SetState();
+    T.StateCompile();
+
 });

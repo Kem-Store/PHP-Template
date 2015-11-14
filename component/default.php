@@ -11,7 +11,7 @@
     </div>
 	<div class="navbar-collapse collapse" id="navbar-collapse" aria-expanded="false" style="height: 1px;">
 	  <ul class="nav navbar-nav">
-  		<li><a component="home" href="#">HOME</a></li>
+  		<li><a component="home" href="#" lang="_HOME">HOME</a></li>
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
@@ -24,8 +24,8 @@
           <li><a href="#">อะไรสักอย่าง</a></li>
         </ul>
       </li>
-  		<li><a component="about-us" href="#">ABOUT US</a></li>
-  		<li><a component="contact-us" href="#">CONTACT US</a></li>
+  		<li><a component="about-us" href="#" lang="_ABOUT">ABOUT US</a></li>
+  		<li><a component="contact-us" href="#" lang="_CONTACT">CONTACT US</a></li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
       <li class="dropdown">
