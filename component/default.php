@@ -13,7 +13,7 @@
 	  <ul class="nav navbar-nav">
   		<li><a component="home" href="#" lang="_HOME">HOME</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
+        <a href="#" class="dropdown-toggle" component="shop" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
           <li><a href="#">Action</a></li>
           <li><a href="#">Another action</a></li>
@@ -63,15 +63,27 @@
   foreach (Component::load() as $key => $value)
   {
     echo '<div id="panel-'.$value['com'].'" style="display:none">';
-    include_once($value['path']);
+//     try {
+//       //include_once($value['path']);
+//     } catch (Exception $ex) {
+//       echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
+//       echo '<strong>Oh snap!</strong> '.$e->getMessage().'</div>';
+//     }
     echo '</div>';
   }
 ?>
 </div>
 <script>
 T.SetComponent(function(name){
+  // Component Active
   $('div#panel-component>div').hide();
   $('div#panel-component>div#panel-'+name).show();
+
+  // Nav-menu Active
+    $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+    $('ul.navbar-nav>li:has(a[component="'+name+'"])').addClass('active');
+
+  return $('div#panel-component>div#panel-'+name).length > 0;
 });
 
 $(function(){
@@ -83,8 +95,10 @@ $(function(){
 
     $(e).click(function(event){
       event.preventDefault();
-      $('ul.navbar-nav>li:not(.dropdown)').removeClass('active');
-      $(e).parent().addClass('active');
+      var com = $(e).attr('component');
+      
+      $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+      $('ul.navbar-nav>li:has(a[component="'+com+'"])').addClass('active');
       T.SetState($(e).attr('component'));
     });
   });

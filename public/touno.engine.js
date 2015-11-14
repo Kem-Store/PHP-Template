@@ -27,7 +27,7 @@ window.T = {
         return  State.Component+(State.Module?'-'+State.Module:'')+(State.StorageName?'-'+State.StorageName:'');
     },
     SetState: function (component, module, item_name) {
-        window.State.Component = component || T.Storage('component-default') || 'home';
+        window.State.Component = component || null;
         window.State.Module = module || null;
         window.State.StorageName = item_name || null;
         T.StateCompile();
@@ -51,10 +51,18 @@ window.T = {
         return T.Storage(window.State.StorageName);
     },
     StateCompile: function(event){
-        console.log('StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
+        var main = T.Storage('component-default') || 'home';
+        var found = T._Handle.Component(window.State.Component);
+        console.log('Check', found);
+        if(!found){
+            window.State.Component = main;
+            T._Handle.Component(window.State.Component);
+        }
+
+        console.log('StateCompile::', 'StateName:', T.StateName(), '- GetItems:', T.GetItems(), window.State);
         if(!event) window.history.pushState(T.GetItems(), T.StateName(), T.StateURL());
+        if(!found) window.history.replaceState(T.GetItems(), T.StateName(), T.StateURL());
         
-        if(window.State.Component) T._Handle.Component(window.State.Component);
         if(window.State.Module || window.State.StorageName) {
             loader.on();
             (function(){
@@ -151,11 +159,12 @@ $.extend(String.prototype, {
     }
 });
 
-var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab.  
+var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab. 
+    console.log('_HandleState::', event); 
     var State = { Component: null, Module: null, StorageName: null, StorageItems: null }
     var getState = new RegExp(document.domain + '.*?\/([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*([^\/]*)\/*', 'ig');
     getState = getState.exec(location.href);
-    State.Component = getState[1] || T.Storage('component-default') || 'home';
+    State.Component = getState[1] || null;
     State.Module = getState[2] || null;
     State.StorageName = getState[3] || null;
     return State;
@@ -163,11 +172,10 @@ var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab.
 
 window.State = _HandleState();
 window.onpopstate = function(event) {
-    console.log(event);
     window.State = _HandleState();
+    console.log('onpopstate::', window.State);
     T.StateCompile(event);
 };
 $(function(){
     T.StateCompile();
-
 });

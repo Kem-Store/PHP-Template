@@ -104,8 +104,14 @@
 
 </script>
 <?php 
-include_once("/lib/init.php"); 
-include_once("/component/default.php"); 
+try
+{
+    include_once("/lib/init.php"); 
+    include_once("/component/default.php"); 
+} catch(Exception $ex) {
+  echo '<div class="alert alert-dismissible alert-danger navbar-fixed-top">';
+  echo '<strong>Oh snap!</strong> '.$ex->getMessage().'</div>';
+}
 ?>
 </body>
 </html>

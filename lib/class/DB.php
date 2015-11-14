@@ -12,17 +12,17 @@ class DB
 		$dbConfig = $_SERVER['SERVER_PORT'] != 80 ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
 
-		try {
-			$this->dbh = new PDO($connection, $dbConfig['username'], $dbConfig['password'], NULL);
-			if (!$this->dbh) {
-				throw new Exception('<strong>Error:</strong> '.mysql_error());
-			} else {
-				$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-			}
-		} catch(Exception $e) {
-			$this->connected = false;
-			echo '<p>'.$e->getMessage().'</p>';
-		}
+		// try {
+		// 	$this->dbh = new PDO($connection, $dbConfig['username'], $dbConfig['password'], NULL);
+		// 	if (!$this->dbh) {
+		// 		throw new Exception('<strong>Error:</strong> '.mysql_error());
+		// 	} else {
+		// 		$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		// 	}
+		// } catch(Exception $ex) {
+		// 	$this->connected = false;
+		// 	throw $ex;
+		// }
 	}
 	
 	public function query($sql, $params = array())
