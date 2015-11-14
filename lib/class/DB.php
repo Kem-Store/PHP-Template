@@ -12,20 +12,22 @@ class DB
 		$dbConfig = $_SERVER['SERVER_PORT'] != 80 ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
 
-		// try {
-		// 	$this->dbh = new PDO($connection, $dbConfig['username'], $dbConfig['password'], NULL);
-		// 	if (!$this->dbh) {
-		// 		throw new Exception('<strong>Error:</strong> '.mysql_error());
-		// 	} else {
-		// 		$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-		// 	}
-		// } catch(Exception $ex) {
-		// 	$this->connected = false;
-		// 	throw $ex;
-		// }
+		try {
+			$this->dbh = new PDO($connection, $dbConfig['username'], $dbConfig['password'], NULL);
+			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+		} catch(Exception $ex) {
+			$this->connected = false;
+			throw new Exception($connection+"<br>"+$ex);
+		}
 	}
 	
-	public function query($sql, $params = array())
+	public function row($sql, $params = array()){
+		$item = $this->fetch($sql, $params);
+		if(count($item)>0) $item = $item[0];
+		return $item;
+	}
+
+	public function fetch($sql, $params = array())
 	{
 		$query = array();
 		if($this->connected)
@@ -37,8 +39,8 @@ class DB
 				}
 				$sth->execute();
 				$query = $sth->fetchAll();
-			} catch(Exception $e) {
-				
+			} catch(Exception $ex) {
+				throw $ex;
 			}			
 		}
 		return $query;

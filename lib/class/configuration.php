@@ -1,6 +1,6 @@
 <?php
 // Author: Kenanek Thongkam
-error_reporting((preg_match('/\.vhost|localhost/', $_SERVER['HTTP_HOST']) ? E_ALL : E_STRICT)); // 
+error_reporting(E_ALL); // 
 date_default_timezone_set('Asia/Bangkok');
 
 class Ini

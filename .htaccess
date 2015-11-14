@@ -1,5 +1,6 @@
 Options -Indexes
 Options +FollowSymLinks 
+Header append X-FRAME-OPTIONS "SAMEORIGIN"
 
 RewriteEngine On 
 RewriteCond %{REQUEST_FILENAME} !-f

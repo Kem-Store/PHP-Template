@@ -37,7 +37,7 @@ CREATE TABLE `billing` (
   `status` varchar(50) NOT NULL,
   `notes` varchar(255) NOT NULL,
   PRIMARY KEY (`billing_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 AUTO_INCREMENT=17 ;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- 
 -- โครงสร้างตาราง `billing_detail`
@@ -53,7 +53,7 @@ CREATE TABLE `billing_detail` (
   PRIMARY KEY (`billing_detail_id`),
   KEY `fk_billing_detail_billing1_idx` (`billing_id`),
   KEY `fk_billing_detail_product1_idx` (`product_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 AUTO_INCREMENT=132 ;
+) ENGINE=InnoDB AUTO_INCREMENT=132 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- 
 -- โครงสร้างตาราง `category`
@@ -64,7 +64,7 @@ CREATE TABLE `category` (
   `sub_id` int(11) NOT NULL DEFAULT '0',
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 AUTO_INCREMENT=13 ;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- 
 -- โครงสร้างตาราง `contents`
@@ -76,7 +76,7 @@ CREATE TABLE `contents` (
   `title` varchar(100) NOT NULL,
   `description` text,
   PRIMARY KEY (`contents_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- 
 -- โครงสร้างตาราง `product`
@@ -94,7 +94,7 @@ CREATE TABLE `product` (
   `image_path` varchar(255) NOT NULL,
   PRIMARY KEY (`product_id`),
   KEY `fk_product_category_idx` (`category_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8 AUTO_INCREMENT=208 ;
+) ENGINE=InnoDB AUTO_INCREMENT=208 DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 
 -- 
 -- Constraints for table `billing_detail`
@@ -102,9 +102,3 @@ CREATE TABLE `product` (
 ALTER TABLE `billing_detail`
   ADD CONSTRAINT `fk_billing_detail_billing1` FOREIGN KEY (`billing_id`) REFERENCES `billing` (`billing_id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `fk_billing_detail_product1` FOREIGN KEY (`product_id`) REFERENCES `product` (`product_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
--- 
--- Constraints for table `product`
--- 
-ALTER TABLE `product`
-  ADD CONSTRAINT `fk_product_category` FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
