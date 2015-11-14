@@ -40,10 +40,10 @@
 <input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary" type="button" value="Editor">
 <input id="btnCancel" onclick="toggleEditor(true);" class="btn" type="button" value="Cancel" style="display:none;">
 </p>
-<?php include("../libs/SyncDatabase.php"); $base = new SyncDatabase(); $home = $base->Query("SELECT title, description FROM contents WHERE title_id='about'"); ?>
-<h2><?php echo $home[0]['title']; ?></h2>
+<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='about'"); ?>
+<h2><?php echo $home['title']; ?></h2>
 <div id="contents">
-	<?php echo $home[0]['description']; ?>
+	<?php echo $home['description']; ?>
 </div>
 <div id="editor" style="display: none">
 </div>

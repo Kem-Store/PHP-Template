@@ -55,54 +55,69 @@
 	// }
 
 </script>
-<p>
-<input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary" type="button" value="Editor">
-<input id="btnCancel" onclick="toggleEditor(true);" class="btn" type="button" value="Cancel" style="display:none;">
-</p>
-
-<?php include("../libs/SyncDatabase.php"); $base = new SyncDatabase(); $home = $base->Query("SELECT title, description FROM contents WHERE title_id='contact'"); ?>
-
-<table border="0" cellpadding="0" cellspacing="0" width="100%">
-  <tr>
-    <td width="50%" valign="top">
-        <h2><?php echo $home[0]['title']; ?></h2>
+<div class="container">
+	<div class="col-lg-12">
+<!-- 		<div class="btn-group btn-toolbar">
+		  <a id="btnEditor" onclick="toggleEditor();" href="#" class="btn btn-primary">Editor</a>
+		  <a id="btnCancel" onclick="toggleEditor(true);" href="#" class="btn btn-default">Cancel</a>
+		</div> -->
+	</div>
+	<div class="col-lg-6">
+		<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='contact'"); ?>
+        <h2><?php echo $home['title']; ?><i class="fa fa-pencil-square-o fa-event"></i></h2>
 		<div id="contents">
-			<?php echo $home[0]['description']; ?>
+			<?php echo $home['description']; ?>
 		</div>
 		<div id="editor" style="display: none">
 		</div>
-    </td>
-    <td id="email" width="50%" valign="top">
-        <table class="tb-block" border="0" cellpadding="3" cellspacing="0">
-          <tr>
-            <td><strong>Name</strong></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="txtName" class="form-control" value="" style="width:200px;"></td>
-          </tr>
-          <tr>
-            <td><strong>Email</strong></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="txtEmail" class="form-control" value="" style="width:200px;"></td>
-          </tr>
-          <tr>
-            <td><strong>Subject</strong></td>
-          </tr>
-          <tr>
-            <td><input type="text" id="txtSubject" class="form-control" value="" style="width:400px;"></td>
-          </tr>
-          <tr>
-            <td><strong>Message</strong></td>
-          </tr>
-          <tr>
-            <td><textarea class="form-control" id="txtMessage" cols="50" rows="10" style="width:398px; resize:none;"></textarea></td>
-          </tr>
-          <tr>
-            <td><input type="button" id="btnSend" class="btn btn-lg btn-primary btn-block" value="Send Email" onclick="sending()"></td>
-          </tr>
-        </table>
-    </td>
-  </tr>
-</table>
+	</div>
+	<div class="col-lg-6">
+		<div class="well bs-component" style="margin-top:10px;">
+			<form class="form-horizontal">
+			  <fieldset>
+			    <legend>Contact</legend>
+			    <div class="form-group">
+			      <label for="txtName" class="col-lg-2 control-label">Name</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control input-sm" id="txtName" placeholder="Name">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="txtEmail" class="col-lg-2 control-label">Email</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control input-sm" id="txtEmail" placeholder="Email">
+			      </div>
+			    </div>
 
+			    <div class="form-group">
+			      <label for="txtSubject" class="col-lg-2 control-label">Subject</label>
+			      <div class="col-lg-10">
+			        <input type="text" class="form-control input-sm" id="txtSubject" placeholder="Subject">
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="txtMessage" class="col-lg-2 control-label">Message</label>
+			      <div class="col-lg-10">
+			        <textarea class="form-control" rows="3" id="txtMessage"></textarea>
+			      </div>
+			    </div>
+			    <div class="form-group">
+			      <label for="txtMessage" class="col-lg-2 control-label">Captcha</label>
+			      <div class="col-lg-10">
+			        <div class="g-recaptcha" data-sitekey="6Leq_hATAAAAAGlK8bgySwlFsX7RKj3j_5uRpdxV"></div>
+			        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
+			      </div>
+			    </div>
+
+			    <div class="form-group">
+			      <div class="col-lg-10 col-lg-offset-2">
+			        <button type="reset" class="btn btn-default">Cancel</button>
+			        <button type="submit" class="btn btn-primary">Submit</button>
+			      </div>
+			    </div>
+			  </fieldset>
+			  <script src='https://www.google.com/recaptcha/api.js'></script>
+			</form>
+		</div>
+	</div>
+</div>

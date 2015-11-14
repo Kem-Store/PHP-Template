@@ -43,18 +43,18 @@
 	<input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary btn-xs" type="button" value="Editor">
 	<input id="btnCancel" onclick="toggleEditor(true);" class="btn btn-xs" type="button" value="Cancel">
 	</p>
-	<?php $home = $base->query("SELECT description FROM contents WHERE title_id='home'"); ?>
+	<?php $home = $base->row("SELECT description FROM contents WHERE title_id='home'"); ?>
 	<div id="contents">
-		<?php echo $home[0]['description']; ?>
+		<?php echo $home['description']; ?>
 	</div>
 	<div id="editor" style="display: none"></div>
 	<h3>Product Recommended</h3>
 	<?php
-	$recommend = $base->Query("SELECT p.product_id, name_en, name_th, price, size, image_path FROM 
+	$recommend = $base->fetch("SELECT p.product_id, name_en, name_th, price, size, image_path FROM 
 	(SELECT product_id, COUNT(product_id) FROM billing_detail GROUP BY product_id ORDER BY COUNT(product_id) DESC, product_id ASC LIMIT 1, 6) db 
 	INNER JOIN product p ON p.product_id = db.product_id");
 
-	$new = $base->Query("SELECT product_id, name_en, name_th, price, size, image_path FROM product ORDER BY product_id DESC LIMIT 1, 6");
+	$new = $base->fetch("SELECT product_id, name_en, name_th, price, size, image_path FROM product ORDER BY product_id DESC LIMIT 1, 6");
 	?>
 	<table cellpadding="4" cellspacing="15" border="0" width="100%">
 	<?php $loop = 1; foreach($recommend as $dRow): ?>

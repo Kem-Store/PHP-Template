@@ -1,3 +1,34 @@
+<script>
+T.SetComponent(function(name){
+  // Component Active
+  $('div#panel-component>div').hide();
+  $('div#panel-component>div#panel-'+name).show();
+
+  // Nav-menu Active
+  $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+  $('ul.navbar-nav>li:has(a[component="'+name+'"])').addClass('active');
+
+  return $('div#panel-component>div#panel-'+name).length > 0;
+});
+
+$(function(){
+  // Component
+  $('ul.navbar-nav>li:not(.dropdown)>a').each(function(i, e) {
+    if($(e).attr('component') === window.State.Component) {
+      $(e).parent().addClass('active');
+    }
+
+    $(e).click(function(event){
+      event.preventDefault();
+      var com = $(e).attr('component');
+      
+      $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+      $('ul.navbar-nav>li:has(a[component="'+com+'"])').addClass('active');
+      T.SetState($(e).attr('component'));
+    });
+  });
+});
+</script>
 <div class="navbar navbar-default navbar-fixed-top navbar-gradient">
   <div class="container">
     <div class="navbar-header">
@@ -59,48 +90,17 @@
 </div>
 <div id="panel-component">
 <?php
-  include_once('lib/init.php');
-  foreach (Component::load() as $key => $value)
-  {
-    echo '<div id="panel-'.$value['com'].'" style="display:none">';
-//     try {
-//       //include_once($value['path']);
-//     } catch (Exception $ex) {
-//       echo '<div class="alert alert-dismissible alert-danger"><button type="button" class="close" data-dismiss="alert">×</button>';
-//       echo '<strong>Oh snap!</strong> '.$e->getMessage().'</div>';
-//     }
-    echo '</div>';
-  }
-?>
-</div>
-<script>
-T.SetComponent(function(name){
-  // Component Active
-  $('div#panel-component>div').hide();
-  $('div#panel-component>div#panel-'+name).show();
-
-  // Nav-menu Active
-    $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
-    $('ul.navbar-nav>li:has(a[component="'+name+'"])').addClass('active');
-
-  return $('div#panel-component>div#panel-'+name).length > 0;
-});
-
-$(function(){
-  // Component
-  $('ul.navbar-nav>li:not(.dropdown)>a').each(function(i, e) {
-    if($(e).attr('component') === window.State.Component) {
-      $(e).parent().addClass('active');
+    try {
+      include_once('lib/init.php');
+      foreach (Component::load() as $key => $value)
+      {
+        echo '<div id="panel-'.$value['com'].'" style="display:none">';
+        include("component/$value[com]/index.php");
+        echo '</div>';
+      }
+    } catch(Exception $ex) {
+      echo 'ERROR::'+$ex;
     }
 
-    $(e).click(function(event){
-      event.preventDefault();
-      var com = $(e).attr('component');
-      
-      $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
-      $('ul.navbar-nav>li:has(a[component="'+com+'"])').addClass('active');
-      T.SetState($(e).attr('component'));
-    });
-  });
-});
-</script>
+?>
+</div>

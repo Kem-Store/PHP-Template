@@ -31,7 +31,7 @@
     <td width="300" valign="top">
       <div class="list-group">
       <div class="list-group-item cate-list active" hash="0" onClick="$(this).CATEGORY_CHANGE(0);">ALL</div>
-	  <?php foreach($base->Query("SELECT category_id, name FROM category WHERE sub_id = 0 ORDER BY name ASC;") as $dRow): ?>
+	  <?php foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = 0 ORDER BY name ASC;") as $dRow): ?>
       <div class="list-group-item cate-list" hash="<?php echo $dRow['category_id']; ?>" onClick="$(this).CATEGORY_CHANGE(<?php echo $dRow['category_id']; ?>);">
         <?php 
 		$name_en = $dRow['name'];
@@ -45,7 +45,7 @@
 	    <div class="cate-en"><?php echo $name_en; ?></div>
         <div class="cate-th"><?php echo $name_th; ?></div>
       </div>
-	    <?php foreach($base->Query("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;") as $dSub): ?>
+	    <?php foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;") as $dSub): ?>
         <div class="list-group-item cate-list cate-sub" hash="<?php echo $dSub['category_id']; ?>" onClick="$(this).CATEGORY_CHANGE(<?php echo $dSub['category_id']; ?>);" style="padding-left: 40px;">
           <?php 
 		  $name_en = $dSub['name'];
