@@ -172,7 +172,6 @@ var _HandleState = function () { // Event in Refesh page F5 key or Open NewTab.
 window.State = _HandleState();
 window.onpopstate = function(event) {
     window.State = _HandleState();
-    console.log('onpopstate::', window.State);
     T.StateCompile(event);
 };
 $(function(){

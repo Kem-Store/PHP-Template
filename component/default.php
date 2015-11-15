@@ -5,7 +5,7 @@ T.SetComponent(function(name){
   $('div#panel-component>div#panel-'+name).show();
 
   // Nav-menu Active
-  $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+  $('ul.navbar-nav>li:not(.dropdown)>a[component]').removeAttr('class');
   $('ul.navbar-nav>li:has(a[component="'+name+'"])').addClass('active');
 
   return $('div#panel-component>div#panel-'+name).length > 0;
@@ -13,7 +13,7 @@ T.SetComponent(function(name){
 
 $(function(){
   // Component
-  $('ul.navbar-nav>li:not(.dropdown)>a').each(function(i, e) {
+  $('ul.navbar-nav>li:not(.dropdown)>a[component]').each(function(i, e) {
     if($(e).attr('component') === window.State.Component) {
       $(e).parent().addClass('active');
     }
@@ -59,6 +59,8 @@ $(function(){
   		<li><a component="contact-us" href="#" lang="_CONTACT">CONTACT US</a></li>
 	  </ul>
 	  <ul class="nav navbar-nav navbar-right">
+      <li><a action="login" href="#" lang="_LOGIN">LOGIN</a></li>
+      <!-- <li><a action="logout" href="#" lang="_LOGOUT">LOGOUT</a></li> -->
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
           CART 
@@ -103,4 +105,18 @@ $(function(){
     }
 
 ?>
+</div><div class="panel-footer navbar-fixed-bottom">
+  <div class="container">
+    <div>Copyright <i class="fa fa-copyright" style="font-size: 12px;"></i> 2015 raannuch.co.uk All rights reserved.</div>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-70130307-1', 'auto');
+      ga('send', 'pageview');
+
+    </script>
+  </div>
 </div>

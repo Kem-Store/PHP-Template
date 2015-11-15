@@ -53,29 +53,54 @@
 	// 		success: function(data){ alert(data); $('#btnSend').prop('disable', false); }	
 	// 	});
 	// }
+	// javascript:grecaptcha.reset(reCallback);
+var recaptchaAccept = false, recaptchaContact = false;
+var recaptchaOnload = function() {
+	recaptchaContact = grecaptcha.render('recaptcha', {
+		// 'callback' : function(response) { alert(response); },
+		'sitekey' : '6Leq_hATAAAAAGlK8bgySwlFsX7RKj3j_5uRpdxV',
+		'theme' : 'light'
+	});
+};
 
+$(function(){
+
+	var editor = CKEDITOR.appendTo('contact-us-editor', {}, $('#contact-us-contents').html());
+	editor.on( 'change', function( evt ) {
+	    // getData() returns CKEditor's HTML content.
+	    console.log( 'Total bytes: ' + evt.editor.getData().length );
+	});
+
+	$('#contact-us-contents button[type="reset"]').click(function(event){
+    	// event.preventDefault();
+    	javascript:grecaptcha.reset(recaptchaContact);
+    	$('form#contact-us fieldset div.form-group').attr('class','form-group');
+	});
+	$('#contact-us-contents').submit(function(event){
+		event.preventDefault();
+		alert(grecaptcha.getResponse(recaptchaContact));
+
+	});
+
+});
 </script>
 <div class="container">
+	<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='contact'"); ?>
 	<div class="col-lg-12">
+        <h2><?php echo $home['title']; ?><i class="fa fa-pencil-square-o fa-event"></i></h2>
 <!-- 		<div class="btn-group btn-toolbar">
 		  <a id="btnEditor" onclick="toggleEditor();" href="#" class="btn btn-primary">Editor</a>
 		  <a id="btnCancel" onclick="toggleEditor(true);" href="#" class="btn btn-default">Cancel</a>
 		</div> -->
 	</div>
-	<div class="col-lg-6">
-		<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='contact'"); ?>
-        <h2><?php echo $home['title']; ?><i class="fa fa-pencil-square-o fa-event"></i></h2>
-		<div id="contents">
-			<?php echo $home['description']; ?>
-		</div>
-		<div id="editor" style="display: none">
-		</div>
+	<div class="col-lg-6 contact-us">
+		<div id="contact-us-contents"><?php echo $home['description']; ?></div>
+		<div id="contact-us-editor"></div>
 	</div>
 	<div class="col-lg-6">
 		<div class="well bs-component" style="margin-top:10px;">
-			<form class="form-horizontal">
+			<form class="form-horizontal" id="contact-us">
 			  <fieldset>
-			    <legend>Contact</legend>
 			    <div class="form-group">
 			      <label for="txtName" class="col-lg-2 control-label">Name</label>
 			      <div class="col-lg-10">
@@ -104,20 +129,21 @@
 			    <div class="form-group">
 			      <label for="txtMessage" class="col-lg-2 control-label">Captcha</label>
 			      <div class="col-lg-10">
-			        <div class="g-recaptcha" data-sitekey="6Leq_hATAAAAAGlK8bgySwlFsX7RKj3j_5uRpdxV"></div>
+			        <div id="recaptcha"></div>
 			        <span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>
 			      </div>
 			    </div>
 
 			    <div class="form-group">
 			      <div class="col-lg-10 col-lg-offset-2">
-			        <button type="reset" class="btn btn-default">Cancel</button>
-			        <button type="submit" class="btn btn-primary">Submit</button>
+			        <button type="reset" class="btn btn-default">Reset</button>
+			        <button type="submit" class="btn btn-primary">Send Email</button>
 			      </div>
 			    </div>
 			  </fieldset>
-			  <script src='https://www.google.com/recaptcha/api.js'></script>
+			  <script src="//www.google.com/recaptcha/api.js?onload=recaptchaOnload&render=explicit" async></script>
 			</form>
 		</div>
 	</div>
+	<div class="col-lg-12 fix-footer"><hr><div class="icon-hr"></div></div>
 </div>

@@ -101,8 +101,5 @@
 	<?php if(($loop % 2) == 0) echo '</tr>';?>
 	<?php $loop++; endforeach; ?>
 	</table>
-
-
-
-
+	<div><hr><div class="icon-hr"></div></div>
 </div>

@@ -34,6 +34,7 @@
         <script type="text/javascript" src="/public/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="/public/js/bootstrap-datetimepicker.min.js"></script>
         <script type="text/javascript" src="/public/js/bootstrap-notify.min.js"></script>
+        <script type="text/javascript" src="/public/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="/public/touno.engine.js"></script>
     </head>
 <body>

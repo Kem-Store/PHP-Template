@@ -74,9 +74,25 @@ i.fa-event:hover {
 	display: block; 
 	background: url('../../images/dark_wood.jpg') 50% 0% repeat;
 	color: #FFF;
-   font-size: 400%;
-   font-weight: bold;
-   padding-top: 120px;
+	font-size: 400%;
+	font-weight: bold;
+	padding-top: 120px;
+}
+.icon-hr {
+    margin-right: auto;
+    margin-left: auto;
+	height: 25px;
+	width: 35px;
+	margin-top: -38px;
+	background: #FCFCFD url('../../images/hr.png') center center no-repeat
+}
+.panel-footer {
+	background-color:#413c35;
+	color:#ada89f;
+	border-radius: 0px;
+}
+.fix-footer {
+	margin-bottom: 60px;
 }
 /*text-align: center; position: relative; height: 400px; display: block; 
 background: url(http://localhost:8081/images/dark_wood.jpg) 50% 0% repeat;*/

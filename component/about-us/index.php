@@ -36,14 +36,17 @@
 	// }
 
 </script>
-<p>
-<input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary" type="button" value="Editor">
-<input id="btnCancel" onclick="toggleEditor(true);" class="btn" type="button" value="Cancel" style="display:none;">
-</p>
-<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='about'"); ?>
-<h2><?php echo $home['title']; ?></h2>
-<div id="contents">
+<div class="container">
+	<p>
+	<input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary" type="button" value="Editor">
+	<input id="btnCancel" onclick="toggleEditor(true);" class="btn" type="button" value="Cancel" style="display:none;">
+	</p>
+	<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='about'"); ?>
+	<h2><?php echo $home['title']; ?></h2>
+	<div id="contents">
 	<?php echo $home['description']; ?>
-</div>
-<div id="editor" style="display: none">
+	</div>
+	<div id="editor" style="display: none">
+	</div>
+	<div><hr><div class="icon-hr"></div></div>
 </div>
