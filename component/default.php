@@ -13,18 +13,22 @@ T.SetComponent(function(name){
 
 $(function(){
   // Component
-  $('ul.navbar-nav>li:not(.dropdown)>a[component]').each(function(i, e) {
+  $('ul.navbar-nav li:not(.dropdown)>a[component]').each(function(i, e) {
     if($(e).attr('component') === window.State.Component) {
       $(e).parent().addClass('active');
     }
 
     $(e).click(function(event){
       event.preventDefault();
-      var com = $(e).attr('component');
+      var com = $(e).attr('component'), mod = $(e).attr('module');
       
-      $('ul.navbar-nav>li:not(.dropdown)').removeAttr('class');
+      $('ul.navbar-nav li:has(a[component])').removeClass('active');
       $('ul.navbar-nav>li:has(a[component="'+com+'"])').addClass('active');
-      T.SetState($(e).attr('component'));
+      T.SetState(com);
+      if(mod) {
+        $('ul.navbar-nav li:has(a[module="'+mod+'"])').addClass('active');
+        T.SetModule(mod);
+      }
     });
   });
 });
@@ -44,49 +48,42 @@ $(function(){
 	  <ul class="nav navbar-nav">
   		<li><a component="home" href="#" lang="_HOME">HOME</a></li>
       <li class="dropdown">
-        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
+        <a component="shop" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-          <li><a component="shop" module="list" href="#">All</a></li>
+          <li><a component="shop" module="catagory" href="#">All</a></li>
 	        <?php 
             foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = 0 ORDER BY name ASC;") as $dRow):
-            $dtCategory = $base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;");
-            if(count($dtCategory)) { 
-              echo '<li class="divider"></li>'; 
-            } else {            
-          ?>
-            <li><a component="shop" module="list"  href="#">
-              <?php
+              $dtCategory = $base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;");
+              
+              if(count($dtCategory)) {
+                echo '<li class="divider"></li>'; 
+              } else {
                 $enName = $dRow['name'];
                 $thName = NULL;
                 if (preg_match("/(.*)#(.*)/i", $enName, $arr_name)) {
                   $enName = $arr_name[1];
                   $thName = $arr_name[2];
                 }
-                // echo '<b>'.$enName.'</b>'.($thName ? '<br>'.$thName : '');
-                echo $enName;
               ?>
-            </a></li>
-            <?php
-              }
-              foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;") as $dSub):
-            ?>
-              <li><a component="shop" module="list"  href="#">
+              <li><a component="shop" module="catagory-<?php echo strtolower(preg_replace("/\s|\/|--/i", "-", $enName)); ?>"  href="#"><?php echo $enName; ?></a></li>
+              <?php
+                }
+                foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;") as $dSub):
+                    $enName = $dSub['name'];
+                    $thName = NULL;
+                    if (preg_match("/(.*)#(.*)/i", $enName, $arr_name)) {
+                      $enName = $arr_name[1];
+                      $thName = $arr_name[2];
+                    }
+                    // echo '<b>'.$enName.'</b>'.($thName ? '<br>'.$thName : '');
+                  ?>
+                <li><a component="shop" module="catagory-<?php echo strtolower(preg_replace("/\s|\/|--/i", "-", $enName)); ?>"  href="#"><?php echo $enName; ?></a></li>
                 <?php 
-                  $enName = $dSub['name'];
-                  $thName = NULL;
-                  if (preg_match("/(.*)#(.*)/i", $enName, $arr_name)) {
-                    $enName = $arr_name[1];
-                    $thName = $arr_name[2];
-                  }
-                  // echo '<b>'.$enName.'</b>'.($thName ? '<br>'.$thName : '');
-                  echo $enName;
-                ?>
-              </a></li>
-            <?php 
+                endforeach; 
+                if(count($dtCategory) > 2) { echo '<li class="divider"></li>'; }
+              
             endforeach; 
-            if(count($dtCategory) > 2) { echo '<li class="divider"></li>'; }
             ?>
-          <?php endforeach; ?>
         </ul>
       </li>
   		<li><a component="about-us" href="#" lang="_ABOUT">ABOUT US</a></li>
