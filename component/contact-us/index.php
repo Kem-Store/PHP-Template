@@ -1,5 +1,6 @@
 <script>
 
+
 	// if(Touno.Cookie('ACCESS') == ""){
 	// 	$('#btnCancel').hide();
 	// 	$('#btnEditor').hide();
@@ -95,7 +96,7 @@ $(function(){
 	</div>
 	<div class="col-lg-6 contact-us">
 		<div id="contact-us-contents"><?php echo $home['description']; ?></div>
-		<div id="contact-us-editor"></div>
+		<div id="contact-us-editor" style="display: none"></div>
 	</div>
 	<div class="col-lg-6">
 		<div class="well bs-component" style="margin-top:10px;">

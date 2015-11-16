@@ -93,15 +93,17 @@ $(function(){
 <div id="panel-component">
 <?php
     try {
-      include_once('lib/init.php');
+      include_once($_SERVER["DOCUMENT_ROOT"].'/lib/init.php');
       foreach (Component::load() as $key => $value)
       {
-        echo '<div id="panel-'.$value['com'].'" style="display:none">';
-        include("component/$value[com]/index.php");
-        echo '</div>';
+        if(file_exists($_SERVER["DOCUMENT_ROOT"]."/component/$value[com]/index.php")) {
+          echo '<div id="panel-'.$value['com'].'" style="display:none">';
+          include($_SERVER["DOCUMENT_ROOT"]."/component/$value[com]/index.php");
+          echo '</div>';
+        }
       }
     } catch(Exception $ex) {
-      echo 'ERROR::'+$ex;
+      echo 'ERROR::'+$ex->getMessage();
     }
 
 ?>

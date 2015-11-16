@@ -8,16 +8,17 @@ class DB
 	public function __construct()
 	{
 		$this->connected = true;
-		$dbConfig = parse_ini_file('lib/bin/db.ini', true);
+		$dbConfig = parse_ini_file($_SERVER["DOCUMENT_ROOT"].'/lib/bin/DB.ini', true);
 		$dbConfig = $_SERVER['SERVER_PORT'] != 80 ? $dbConfig['localhost'] : $dbConfig['server'];
         $connection = "mysql:host=$dbConfig[host];dbname=$dbConfig[dbname]";
 
 		try {
 			$this->dbh = new PDO($connection, $dbConfig['username'], $dbConfig['password'], NULL);
 			$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+			$this->dbh->exec("SET names utf8");
 		} catch(Exception $ex) {
 			$this->connected = false;
-			throw new Exception($connection+"<br>"+$ex);
+			throw new Exception($connection);
 		}
 	}
 	

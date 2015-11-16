@@ -14,7 +14,11 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'basicstyles', items: [ 'Bold', 'Italic' ] },
 		{ name: 'paragraph', items: [ 'NumberedList', 'BulletedList', '-', 'Outdent', 'Indent' ] }
 	];
-
+    config.on = {
+        change :function( ev ) {
+            console.log(ev);
+        }
+    }
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
 	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Underline,Strike,Subscript,Superscript';
@@ -25,15 +29,16 @@ CKEDITOR.editorConfig = function( config ) {
 	config.extraPlugins = 'save';
 };
 
+
 CKEDITOR.plugins.add( 'save', {
     icons: 'save',
     init: function( editor ) {
         editor.addCommand( 'savecontent', {
             exec : function(editor){
+                var e = editor.element.$
                 var data = editor.getData();
                 normal_icon = $('.cke_button__save_icon').css('background-image');
-
-                alert(data);
+                console.log($(e).attr('id'), data);
                 //replace the standard save icon with the ajaxloader icon. 
                 //We do this with css.
 
@@ -58,11 +63,6 @@ CKEDITOR.plugins.add( 'save', {
                 // });
             } 
     	});
-
-        editor.ui.addButton( 'save', {
-            label: 'Save',
-            command: 'savecontent'
-           // toolbar: 'insert'
-        });
+        editor.ui.addButton( 'save', { label: 'Save', command: 'savecontent' });
 	}
 });

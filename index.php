@@ -107,8 +107,9 @@
 <?php 
 try
 {
-    include_once("/lib/init.php"); 
-    include_once("/component/default.php"); 
+    $root = $_SERVER["DOCUMENT_ROOT"];
+    include_once($root."/lib/init.php"); 
+    include_once($root."/component/default.php"); 
 } catch(Exception $ex) {
   echo '<div class="alert alert-dismissible alert-danger navbar-fixed-top">';
   echo '<strong>Oh snap!</strong> '.$ex->getMessage().'</div>';

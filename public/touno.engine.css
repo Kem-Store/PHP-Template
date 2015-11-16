@@ -94,5 +94,43 @@ i.fa-event:hover {
 .fix-footer {
 	margin-bottom: 60px;
 }
-/*text-align: center; position: relative; height: 400px; display: block; 
-background: url(http://localhost:8081/images/dark_wood.jpg) 50% 0% repeat;*/
+.product-image {
+	margin-bottom: 5px;
+}
+.product-item {
+	margin:3px;
+	width:250px;
+	height:148px;
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.product-item div.name {
+	padding:3px;
+	font-weight:bold;
+	height:137px;
+}
+.product-item div.action-bg {
+	background-color:#000000;
+	width:290px;
+	height:29px;
+	opacity:0.6;
+	position:relative;
+}
+.product-item div.action {
+	color:#FFFFFF;
+	font-weight:bold;
+	position:relative;
+	margin-top:-29px;
+}
+.product-en, .product-th {
+	font-weight:bold;
+}
+
+.product-price {
+	font-size:130%;
+	font-weight:bold;
+}
+.product-qty {
+	font-size:80%;
+	margin-bottom:15px;
+}
