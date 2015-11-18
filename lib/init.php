@@ -1,4 +1,5 @@
 <?php
+
 include_once($_SERVER["DOCUMENT_ROOT"]."/lib/class/configuration.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/lib/class/session.php");
 include_once($_SERVER["DOCUMENT_ROOT"]."/lib/class/DB.php");

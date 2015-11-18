@@ -1,3 +1,7 @@
+<?php
+header("Access-Control-Allow-Credentials: true");
+header('Access-Control-Allow-Origin: *');
+?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -37,6 +41,10 @@
         <script type="text/javascript" src="/public/ckeditor/ckeditor.js"></script>
         <script type="text/javascript" src="/public/touno.engine.js"></script>
     </head>
+
+
+
+
 <body>
 <script type="text/javascript">
     var host = '';
