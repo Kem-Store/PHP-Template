@@ -146,5 +146,5 @@ $(function(){
 			</form>
 		</div>
 	</div>
-	<div class="col-lg-12 fix-footer"><hr><div class="icon-hr"></div></div>
+	<div class="col-lg-12"><hr><div class="icon-hr"></div></div>
 </div>

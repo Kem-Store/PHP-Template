@@ -67,3 +67,4 @@
     </td>
   </tr>
 </table>
+<hr><div class="icon-hr"></div>

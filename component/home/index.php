@@ -102,5 +102,5 @@ $new = $base->fetch("SELECT product_id, name_en, name_th, price, size, image_pat
 		</div>
 	</div>
 	<?php $loop++; endforeach; ?>
-	<div class="col-lg-12 fix-footer"><hr><div class="icon-hr"></div></div>
+	<div class="col-lg-12"><hr><div class="icon-hr"></div></div>
 </div>
