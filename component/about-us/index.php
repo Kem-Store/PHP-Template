@@ -37,16 +37,13 @@
 
 </script>
 <div class="container">
-	<p>
-	<input id="btnEditor" onclick="toggleEditor();" class="btn btn-primary" type="button" value="Editor">
-	<input id="btnCancel" onclick="toggleEditor(true);" class="btn" type="button" value="Cancel" style="display:none;">
-	</p>
 	<?php $home = $base->row("SELECT title, description FROM contents WHERE title_id='about'"); ?>
-	<h2><?php echo $home['title']; ?></h2>
-	<div id="contents">
-	<?php echo $home['description']; ?>
+	<div class="col-lg-12">
+        <h2><?php echo $home['title']; ?><i class="fa fa-pencil-square-o fa-event"></i></h2>
 	</div>
-	<div id="editor" style="display: none">
+	<div class="col-lg-12 contact-us">
+		<div id="contact-us-contents"><?php echo $home['description']; ?></div>
+		<div id="contact-us-editor" style="display: none"></div>
 	</div>
-	<div><hr><div class="icon-hr"></div></div>
+	<div class="col-lg-12"><hr><div class="icon-hr"></div></div>
 </div>

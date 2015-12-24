@@ -26,6 +26,7 @@
 	
 // });
 </script>
+<div class="container">
 <table border="0" cellpadding="3" cellspacing="0" width="100%">
   <tr>
     <td width="300" valign="top">
@@ -68,3 +69,4 @@
   </tr>
 </table>
 <hr><div class="icon-hr"></div>
+</div>

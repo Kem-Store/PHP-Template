@@ -55,9 +55,11 @@ $new = $base->fetch("SELECT product_id, name_en, name_th, price, size, image_pat
 		<div id="home-contents"><?php echo $home['description']; ?></div>
 		<div id="home-editor" style="display: none"></div>
 	</div>
+	<?php if(count($recommend) > 0): ?>
 	<div class="col-lg-12">
 		<h3>Product Recommended</h3>
 	</div>
+	<?php endif; ?>
 	<?php $loop = 1; foreach($recommend as $dRow): ?>
 	<div class="col-lg-4" style="padding:10px 50px;">
 		<div>
@@ -79,9 +81,11 @@ $new = $base->fetch("SELECT product_id, name_en, name_th, price, size, image_pat
 	</div>
 	<?php $loop++; endforeach; ?>
 
+	<?php if(count($new) > 0): ?>
 	<div class="col-lg-12">
 		<h3>Product New</h3>
 	</div>
+	<?php endif; ?>
 	<?php $loop = 1; foreach($new as $dRow): ?>
 	<div class="col-lg-4" style="padding:10px 50px;">
 		<div>

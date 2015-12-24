@@ -5,7 +5,7 @@ header('Access-Control-Allow-Origin: *');
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>PHP TOUNO TEMPLATE 2.0</title>
+        <title>Raannuch.co.uk</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=0" />
 
@@ -16,12 +16,10 @@ header('Access-Control-Allow-Origin: *');
         <meta name="copyright" content="Touno.K">
         <meta name="creation_Date" content="01/11/2015">
 
-        <link rel="shortcut icon" href="/resources/icon/icon-16.png">
-        <link rel="apple-touch-icon" sizes="57x57" href="/resources/icon/icon-57.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/resources/icon/icon-72.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/resources/icon/icon-144.png">
-        <link rel="stylesheet" href="/public/css/raannuch/bootstrap.min.css" type="text/css" />
-        <link rel="stylesheet" href="/public/css/materialPreloader.min.css" type="text/css" />
+        <link rel="shortcut icon" href="/public/icon/icon-16.png">
+        <link rel="apple-touch-icon" sizes="57x57" href="/public/icon/icon-16.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/public/icon/icon-16.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/public/icon/icon-16.png">
         <link href="/public/touno.engine.css" rel="stylesheet" type="text/css" />
         <!--[if lt IE 9]>
           <script src="/public/js/html5shiv.min.js"></script>

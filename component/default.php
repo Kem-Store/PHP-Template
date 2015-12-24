@@ -14,8 +14,10 @@ T.SetComponent(function(name){
 
 $(function(){
   // Component
+  $('ul.breadcrumb').empty();
   $('ul.navbar-nav li:not(.dropdown)>a[component]').each(function(i, e) {
-    if($(e).attr('component') === window.State.Component) {
+    if($(e).attr('component') === window.State.Component && !window.State.Module) {
+      $('ul.breadcrumb').append('<li class="active">'+$(e).html()+'</li>');
       $(e).parent().addClass('active');
     }
 
@@ -23,15 +25,23 @@ $(function(){
       event.preventDefault();
       var com = $(e).attr('component'), mod = $(e).attr('module');
       
+      $('ul.breadcrumb').empty();
       $('ul.navbar-nav li:has(a[component])').removeClass('active');
       $('ul.navbar-nav>li:has(a[component="'+com+'"])').addClass('active');
       T.SetState(com);
       if(mod) {
+        $('ul.breadcrumb').append('<li><a href="#">'+$('ul.navbar-nav>li>a[component="'+com+'"]').text()+'</a></li>');
         $('ul.navbar-nav li:has(a[module="'+mod+'"])').addClass('active');
         T.SetModule(mod);
       }
+      $('ul.breadcrumb').append('<li class="active">'+($(e).text() == 'All' ? 'PRODUCT' : $(e).text())+'</li>');
     });
   });
+  
+  $('ul.navbar-nav li:not(.dropdown)>a[module]').each(function(i, e) {
+    if($(e).attr('module') === window.State.Module) $(e).parent().addClass('active');
+  });
+  
 });
 </script>
 <div class="navbar navbar-default navbar-fixed-top navbar-gradient">
@@ -51,7 +61,7 @@ $(function(){
       <li class="dropdown">
         <a component="shop" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">PRODUCT<span class="caret"></span></a>
         <ul class="dropdown-menu" role="menu">
-          <li><a component="shop" module="catagory" href="#">All</a></li>
+          <li><a component="shop" href="#">All</a></li>
 	        <?php 
             foreach($base->fetch("SELECT category_id, name FROM category WHERE sub_id = 0 ORDER BY name ASC;") as $dRow):
               $dtCategory = $base->fetch("SELECT category_id, name FROM category WHERE sub_id = $dRow[category_id] ORDER BY name ASC;");
